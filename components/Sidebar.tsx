@@ -1,17 +1,19 @@
-import { sidebarLinks } from '@/constants';
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
 import { usePathname } from 'next/navigation';
+
+import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
 
-
 const Sidebar = () => {
+  const pathname = usePathname();
+
   return (
     <section className="sticky left-0 top-0 flex h-screen w-fit flex-col  justify-between  bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[264px]">
-        <div className="flex flex-1 flex-col gap-6">
+      <div className="flex flex-1 flex-col gap-6">
         {sidebarLinks.map((item) => {
-          const isActive = usePathname() === item.route || usePathname().startsWith(`${item.route}/`);
+          const isActive = pathname === item.route || pathname.startsWith(`${item.route}/`);
           
           return (
             <Link
@@ -36,10 +38,9 @@ const Sidebar = () => {
             </Link>
           );
         })}
-
-        </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
